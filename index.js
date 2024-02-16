@@ -14,7 +14,6 @@ function press(e) {
         createNewItem();
     }
 }
-
 function createNewItem() {
     count++;
     document.querySelector('#item').innerHTML = `${count} items left!`;
@@ -71,7 +70,6 @@ function createNewItem() {
         newDiv.style.display = 'block';
         completedDiv.style.display = 'none';
     }
-
     function activeClick(e) {
         e.preventDefault();
         activeDiv.append(div);
@@ -85,7 +83,6 @@ function createNewItem() {
         newDiv.style.display = 'none';
         completedDiv.style.display = 'none';
     }
-
     function completedClick(e) {
         e.preventDefault();
         if (!p.classList.contains('metin')) {
@@ -100,7 +97,6 @@ function createNewItem() {
         newDiv.style.display = 'none';
         completedDiv.style.display = 'block';
     }
-
     function clearClick(e) {
         if (newDiv.style.display == 'block') {
             newDiv.append(div);
@@ -135,4 +131,3 @@ function createNewItem() {
     }
 }
 input.addEventListener('keypress', press);
-
