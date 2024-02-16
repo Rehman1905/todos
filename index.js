@@ -47,7 +47,11 @@ function createNewItem() {
         console.log('a')
         e.preventDefault();
         btn.innerHTML = '✓';
-        count--;
+        if(btn.classList.contains('basdin')){
+        }else{
+            count--;
+        }
+        btn.classList.add('basdin')
         document.querySelector('#item').innerHTML = `${count} items left!`;
         p.classList.add('metin');
         const element = document.querySelectorAll('.completed');
