@@ -135,14 +135,4 @@ function createNewItem() {
     }
 }
 input.addEventListener('keypress', press);
-// function continueFromLocalStorage() {
-//     let netice = localStorage.getItem('netice');
-//     if (!netice) {
-//         return;
-//     }
-//     netice = JSON.parse(netice);
-//     for (let i of netice) {
-//         createNewItem(i);
-//     }
-// }
-// continueFromLocalStorage();
+
