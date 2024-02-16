@@ -19,7 +19,6 @@ function createNewItem() {
     count++;
     document.querySelector('#item').innerHTML = `${count} items left!`;
     document.querySelector('.divv').style.display = 'flex';
-
     const btn = document.createElement('button');
     const p = document.createElement('p');
     const div = document.createElement('div');
@@ -48,7 +47,6 @@ function createNewItem() {
     function btnClick(e) {
         console.log('a')
         e.preventDefault();
-        // const btn = e.target;
         btn.innerHTML = '✓';
         count--;
         document.querySelector('#item').innerHTML = `${count} items left!`;

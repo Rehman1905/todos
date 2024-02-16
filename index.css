@@ -127,9 +127,12 @@ form div button{
 }
 .clear{
     position: absolute;
-    left: 73%;
+    left: 76%;
     display: none;
     border: none;
     font-size: 30px;
-    
+    background-color: #fff;
+}
+#bottom:hover{
+    border-right: 1px solid #b7b1b1;
 }
