@@ -132,3 +132,9 @@ form div button{
 #bottom:hover{
     border-right: 1px solid #b7b1b1;
 }
+@media(max-width:780px) {
+    .clear{
+        position: absolute;
+    left: 70% !important;
+    }
+}

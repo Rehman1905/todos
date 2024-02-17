@@ -47,13 +47,18 @@ function createNewItem() {
         console.log('a')
         e.preventDefault();
         btn.innerHTML = '✓';
+        p.classList.add('metin');
         if(btn.classList.contains('basdin')){
+            btn.innerHTML=''
+            p.classList.remove('metin')
+            btn.classList.remove('basdin')
+            count++
         }else{
             count--;
+            btn.classList.add('basdin')
         }
-        btn.classList.add('basdin')
         document.querySelector('#item').innerHTML = `${count} items left!`;
-        p.classList.add('metin');
+        
         const element = document.querySelectorAll('.completed');
         element.forEach(function (e) {
             completedDiV.append(e);
@@ -73,6 +78,7 @@ function createNewItem() {
         activeDiv.style.display = 'none';
         newDiv.style.display = 'block';
         completedDiv.style.display = 'none';
+        clear.style.left='76%'
     }
     function activeClick(e) {
         e.preventDefault();
@@ -86,6 +92,8 @@ function createNewItem() {
         activeDiv.style.display = 'block';
         newDiv.style.display = 'none';
         completedDiv.style.display = 'none';
+        clear.style.left='77%'
+        btn.style.fontSize='25px'
     }
     function completedClick(e) {
         e.preventDefault();
