@@ -1,145 +1,158 @@
-const input = document.querySelector('#input');
-const all = document.querySelector('#all');
-const active = document.querySelector('#active');
-const completed = document.querySelector('#completed');
-const clearCompleted = document.querySelector('#clearCompleted');
-const activeDiv = document.querySelector('#activeDiv');
-const completedDiV = document.querySelector('#completedDiv');
-let count = 0;
-let arr = [];
+let arr=[]
+let result=[]
+const newDiv=document.querySelector('#newDiv')
+const input=document.querySelector('#input')
+const item=document.querySelector('#item')
+function createNewTask(e){
+    let task={
+        text:e,
+        complited:false
+    }
+    arr.push(task)
+    show(arr)
+   
+}
+function compliteActivate(index){
+    if(arr[index].complited){
+        arr[index].complited=false
+    }else{
+        arr[index].complited=true
+    }
+    show(arr)
+}
 
-function press(e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
-        createNewItem();
-    }
+function removeTask(index){
+    
+    arr.splice(index,1)
+    show(arr)
+    
 }
-function createNewItem() {
-    count++;
-    document.querySelector('#item').innerHTML = `${count} items left!`;
-    document.querySelector('.divv').style.display = 'flex';
-    const btn = document.createElement('button');
-    const p = document.createElement('p');
-    const div = document.createElement('div');
-    const newDiv = document.querySelector('#newDiv');
-    const clear=document.createElement('button')
-    clear.textContent='X'
-    clear.classList.add('clear')
-    p.classList.add('p')
-    newDiv.style.display = 'block';
-    div.append(btn,p,clear);
-    newDiv.append(div);
-    div.classList.add('createDiv');
-    btn.id = 'btn';
-    p.innerHTML = input.value;
-    arr.push(input.value);
-    localStorage.setItem('netice', JSON.stringify(arr)); 
-    input.value = '';
-    const bottom = document.querySelector('#bottom')
-    btn.addEventListener('click', btnClick);
-    all.addEventListener('click', allClick);
-    active.addEventListener('click', activeClick);
-    completed.addEventListener('click',completedClick);
-    clearCompleted.addEventListener('click', clearClick);
-    bottom.addEventListener('click', allBtnSech)
-    clear.addEventListener('click',clearItem)
-    function btnClick(e) {
-        console.log('a')
-        e.preventDefault();
-        btn.innerHTML = '✓';
-        p.classList.add('metin');
-        if(btn.classList.contains('basdin')){
-            btn.innerHTML=''
-            p.classList.remove('metin')
-            btn.classList.remove('basdin')
-            count++
+function clearComplited(){
+    for(let i=0;i<arr.length;i++){
+        if(arr[i].complited==true){
+            arr.splice(i,1)
+        }
+        i--
+    }
+    show(arr)
+}
+function showAll(){
+   show(arr)
+}
+function showActive(){
+    const aktivler=arr.filter(arr=>!arr.complited)
+   console.log(aktivler)
+   item.innerHTML=`${aktivler.length} items left!`
+    show(aktivler)
+}
+function showComplited(){
+    const bitmish=arr.filter(arr=>arr.complited)
+    show(bitmish)
+}
+function show(arr){
+    newDiv.innerHTML=''
+    console.log(arr)
+    for(let i in arr){
+        console.log(arr[i])
+        const btn=document.createElement('button')
+        const div=document.createElement('div')
+        const clear=document.createElement('button')
+        const allDiv=document.createElement('div')
+        allDiv.id='alldiv'
+        clear.innerHTML='X'
+        clear.id='clear'
+        div.id='text'
+        btn.id='btn'
+        div.innerHTML=arr[i].text
+        if(arr[i].complited){
+            btn.innerHTML='✓'
+            btn.style.color='green'
         }else{
-            count--;
-            btn.classList.add('basdin')
+            btn.innerHTML=''
         }
-        document.querySelector('#item').innerHTML = `${count} items left!`;
-        
-        const element = document.querySelectorAll('.completed');
-        element.forEach(function (e) {
-            completedDiV.append(e);
-        });
+        if(arr[i].complited){
+            div.style.textDecoration='line-through'
+        }else{
+            div.style.textDecoration='none'
+        }
+        btn.addEventListener('click',function(e){
+            e.preventDefault()
+            compliteActivate(i)
+        })
+        clear.addEventListener('click',function(e){
+            e.preventDefault()
+           
+            removeTask(i)
+        })
+        allDiv.append(btn,div,clear)
+        newDiv.append(allDiv)
+        allDiv.addEventListener('mouseover', function () {
+            clear.style.display = 'block'
+        })
+        allDiv.addEventListener('mouseout', function () {
+            clear.style.display = 'none'
+        })
     }
-    div.addEventListener('mouseover',function(){
-        clear.style.display='block'
-    })
-    div.addEventListener('mouseout',function(){
-        clear.style.display='none'
-    })
-    function allClick(e) {
-        newDiv.append(div);
-        if (btn.classList.contains('cleared')) {
-            div.remove();
-        }
-        activeDiv.style.display = 'none';
-        newDiv.style.display = 'block';
-        completedDiv.style.display = 'none';
-        clear.style.left='76%'
-    }
-    function activeClick(e) {
-        e.preventDefault();
-        activeDiv.append(div);
-        if (p.classList.contains('metin')) {
-            div.remove();
-        }
-        if(btn.classList.contains('allWhere')){
-            div.remove(active)
-        }
-        activeDiv.style.display = 'block';
-        newDiv.style.display = 'none';
-        completedDiv.style.display = 'none';
-        clear.style.left='77%'
-        btn.style.fontSize='25px'
-    }
-    function completedClick(e) {
-        e.preventDefault();
-        if (!p.classList.contains('metin')) {
-            div.remove();
-        } else {
-            completedDiV.append(div);
-        }
-        if(btn.classList.contains('allWhere')){
-            div.remove(active)
-        }
-        activeDiv.style.display = 'none';
-        newDiv.style.display = 'none';
-        completedDiv.style.display = 'block';
-    }
-    function clearClick(e) {
-        if (newDiv.style.display == 'block') {
-            newDiv.append(div);
-            if (p.classList.contains('metin')) {
-                btn.classList.add('cleared');
-                div.remove();
-            }
-        } else {
-            alert("Clear completed button is only for all");
-        }
-    }
-    function allBtnSech(e) {
-        e.preventDefault()
-        btn.innerHTML = '✓';
-        count--;
-        if(count<0){
-            count=0
-        }
-        document.querySelector('#item').innerHTML = `${count} items left!`;
-        p.classList.add('metin');
-        const element = document.querySelectorAll('.completed');
-        element.forEach(function (e) {
-            completedDiV.append(e);
-        });
-    }
-    function clearItem(e){
-        count--
-        document.querySelector('#item').innerHTML = `${count} items left!`;
-        btn.classList.add('allWhere')
-        btn.classList.add('cleared')
-        div.remove()
+    const aktivler=arr.filter(arr=>!arr.complited)
+    item.innerHTML=`${aktivler.length} items left!`
+    if(arr.length!=0){
+        divv.style.display='flex'
+    }else{
+        divv.style.display='none'
     }
 }
-input.addEventListener('keypress', press);
+const divv=document.querySelector('.divv')
+function press(e){
+    if(e.keyCode==13){
+        e.preventDefault()
+        if(!input.value.trim()){
+            alert('task yaz')
+        }else{
+            createNewTask(input.value)
+            input.value=''
+        }
+    }
+}
+input.addEventListener('keypress', press)
+document.querySelector('#all').addEventListener('click',function(e){
+    e.preventDefault()
+    showAll()
+})
+document.querySelector('#active').addEventListener('click',function(e){
+    e.preventDefault()
+    showActive()
+})
+document.querySelector('#completed').addEventListener('click',function(e){
+    e.preventDefault()
+    showComplited()
+})
+document.querySelector('#clearCompleted').addEventListener('click',function(e){
+    e.preventDefault()
+    clearComplited()
+})
+document.querySelector('#bottom').addEventListener('click',function(e){
+    e.preventDefault()
+    for(let i in arr){
+        if(arr[i].complited){
+            arr[i].complited=false
+        }else{
+            arr[i].complited=true
+        }
+    }
+    show(arr)
+})
+
+function saxla(){
+        localStorage.setItem('netice',JSON.stringify(arr))
+}
+// function davam(){
+//     let t=localStorage.getItem('netice')
+//     if(!t){
+//         return
+//     }
+//     t=JSON.parse(t)
+//     result.push(t)
+//     console.log(t)
+//     show(result)
+// }
+// davam()

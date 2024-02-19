@@ -1,60 +1,51 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.metin {
-    position: relative;
-    display: inline-block;
-}
-.metin::before {
-    content: ''; 
-    position: absolute;
-    top: 50%; 
-    left: 0; 
-    width: 100%; 
-    height: 1px; 
-    background-color: #787474; 
-    transform: translateY(-50%); 
-}
-body{
-    background-color: #e7e0e0;
-    color: #b7b1b1;
-}
-section{
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-h1{
+
+h1 {
     color: rgb(229, 103, 103);
     font-size: 85px;
 }
-.container{
-    background-color: #fff;
-    padding: 3px;
-    width: 60%;
-}
-#btn{
-    width: 40px;
-    height: 40px;
+
+#btn {
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid #b7b1b1;
-}
-
-#newDiv,#activeDiv,#completedDiv{
+    font-size: 24px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
-form{
+#newDiv{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+#newDiv div{
+    padding-top: 3px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+#alldiv{
+    border-top: 1px solid #b7b1b1;
+}
+#text{
+    margin-bottom: 3px;
+    display: flex;
+}
+
+form {
     display: flex;
     flex-direction: column;
 }
-input{
+
+input {
     width: 100%;
     border: none;
     border-bottom: 1px solid #cecece;
@@ -63,78 +54,74 @@ input{
     padding: 10px;
     border: none;
 }
-.divv{
-    display: flex;
-    display: none;
-    flex-direction: row !important;
-    justify-content: space-between !important; 
-}
 
 input:focus {
     outline: none;
     border: 1px solid rgb(229, 103, 103);
 }
-#newDiv{
-    display: block;
-}
-#activeDiv{
-    display: none;
-}
-#completedDiv{
-    display: none;
-}
-.createDiv{
-    display: flex;
-    margin-top: 15px;
-    margin-left: 5px;
-    gap: 10px;
-    font-size: 20px;
-    border-bottom: 1px solid #b7b1b1;
-    border-top: 1px solid #b7b1b1;
-    padding: 10px 0px;
-}
-#all,#active,#completed,#clearCompleted{
+
+#all,
+#active,
+#completed,
+#clearCompleted {
     border: none;
     background-color: #fff;
     margin-right: 15px;
     color: #b7b1b1;
+    font-size: 15px;
 }
-#all:hover,#active:hover,#completed:hover,#clearCompleted:hover {
+#item{
+    font-size: 15px;
+}
+#all:hover,
+#active:hover,
+#completed:hover,
+#clearCompleted:hover {
     outline: none;
     border: 1px solid rgb(229, 103, 103);
 }
-.delete{
-    width: 20px;
-    height: 20px;
-    color: black;
+
+form div {
+    display: flex;
+    width: 100%;
 }
-form div{
-display: flex;
-width: 100%;
-}
-form div button{
+
+form div button {
     width: 50px;
     background-color: #fff;
     border: none;
     font-size: 30px;
 }
-.p{
-    font-size: 30px;
-}
-.clear{
+
+#clear {
     position: absolute;
-    left: 76%;
+    left: 75.5%;
     display: none;
     border: none;
-    font-size: 30px;
+    font-size: 25px;
     background-color: #fff;
 }
-#bottom:hover{
+
+#bottom:hover {
     border-right: 1px solid #b7b1b1;
+    font-size: 35px;
 }
-@media(max-width:780px) {
-    .clear{
-        position: absolute;
-    left: 70% !important;
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 60%;
+}
+@media(max-width:780px){
+    #clear{
+        left: 73.5%;
     }
+}
+.divv{
+    display: none;
+    flex-direction: row ;
+    justify-content: space-between ; 
 }
