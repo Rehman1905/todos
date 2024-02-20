@@ -1,5 +1,4 @@
-let arr=[]
-let result=[]
+let arr=davam()
 const newDiv=document.querySelector('#newDiv')
 const input=document.querySelector('#input')
 const item=document.querySelector('#item')
@@ -10,7 +9,7 @@ function createNewTask(e){
     }
     arr.push(task)
     show(arr)
-   
+   saxla()
 }
 function compliteActivate(index){
     if(arr[index].complited){
@@ -19,12 +18,14 @@ function compliteActivate(index){
         arr[index].complited=true
     }
     show(arr)
+    saxla()
 }
 
 function removeTask(index){
     
     arr.splice(index,1)
     show(arr)
+    saxla()
     
 }
 function clearComplited(){
@@ -32,9 +33,10 @@ function clearComplited(){
         if(arr[i].complited==true){
             arr.splice(i,1)
         }
-        i--
+        
     }
     show(arr)
+    saxla()
 }
 function showAll(){
    show(arr)
@@ -43,10 +45,12 @@ function showActive(){
     const aktivler=arr.filter(arr=>!arr.complited)
    console.log(aktivler)
    item.innerHTML=`${aktivler.length} items left!`
+   divv.style.display='flex'
     show(aktivler)
 }
 function showComplited(){
     const bitmish=arr.filter(arr=>arr.complited)
+    divv.style.display='flex'
     show(bitmish)
 }
 function show(arr){
@@ -95,11 +99,13 @@ function show(arr){
     }
     const aktivler=arr.filter(arr=>!arr.complited)
     item.innerHTML=`${aktivler.length} items left!`
-    if(arr.length!=0){
+    console.log(arr.length)
+    if(arr.length!=0 || divv.classList.contains('var')){
         divv.style.display='flex'
     }else{
         divv.style.display='none'
     }
+    divv.classList.remove('var')
 }
 const divv=document.querySelector('.divv')
 function press(e){
@@ -120,10 +126,12 @@ document.querySelector('#all').addEventListener('click',function(e){
 })
 document.querySelector('#active').addEventListener('click',function(e){
     e.preventDefault()
+    divv.classList.add('var')
     showActive()
 })
 document.querySelector('#completed').addEventListener('click',function(e){
     e.preventDefault()
+    divv.classList.add('var')
     showComplited()
 })
 document.querySelector('#clearCompleted').addEventListener('click',function(e){
@@ -132,27 +140,35 @@ document.querySelector('#clearCompleted').addEventListener('click',function(e){
 })
 document.querySelector('#bottom').addEventListener('click',function(e){
     e.preventDefault()
+    let a=[]
     for(let i in arr){
-        if(arr[i].complited){
-            arr[i].complited=false
-        }else{
-            arr[i].complited=true
+        if(!arr[i].complited){
+            a.push('0')
         }
     }
+    if(a.length!=0){
+        for(let j in arr){
+            arr[j].complited=true
+        }
+    }else{
+        for(let j in arr){
+            arr[j].complited=false
+        } 
+    }
+    saxla()
     show(arr)
 })
 
 function saxla(){
-        localStorage.setItem('netice',JSON.stringify(arr))
+        localStorage.setItem('task',JSON.stringify(arr))
 }
-// function davam(){
-//     let t=localStorage.getItem('netice')
-//     if(!t){
-//         return
-//     }
-//     t=JSON.parse(t)
-//     result.push(t)
-//     console.log(t)
-//     show(result)
-// }
-// davam()
+
+function davam(){
+    let t=localStorage.getItem('task')
+    if(t){
+        return JSON.parse(t)
+    }else{
+        return []
+    }
+}
+show(arr)
